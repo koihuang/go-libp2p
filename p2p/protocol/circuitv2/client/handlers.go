@@ -153,10 +153,10 @@ func (c *Client) handleStreamV1(s network.Stream) {
 
 	dst, err := util.PeerToPeerInfoV1(msg.GetDstPeer())
 	fmt.Println("1 dst.ID.String()", dst.ID.String())
-	if err != nil || dst.ID != c.host.ID() {
-		handleError(pbv1.CircuitRelay_STOP_DST_MULTIADDR_INVALID)
-		return
-	}
+	//if err != nil || dst.ID != c.host.ID() {
+	//	handleError(pbv1.CircuitRelay_STOP_DST_MULTIADDR_INVALID)
+	//	return
+	//}
 	fmt.Println("2 dst.ID.String()", dst.ID.String())
 
 	log.Debugf("incoming relay connection from: %s", src.ID)
