@@ -77,7 +77,7 @@ func NewRelay(h host.Host, opts ...Option) (*Relay, error) {
 		return nil, err
 	}
 
-	h.SetStreamHandler(ProtoID, r.handleStream)
+	//h.SetStreamHandler(ProtoID, r.handleStream)
 
 	return r, nil
 }
