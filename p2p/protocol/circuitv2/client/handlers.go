@@ -1,6 +1,7 @@
 package client
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/libp2p/go-libp2p/core/network"
@@ -152,6 +153,7 @@ func (c *Client) handleStreamV1(s network.Stream) {
 
 	dst, err := util.PeerToPeerInfoV1(msg.GetDstPeer())
 	if err != nil || dst.ID != c.host.ID() {
+		fmt.Println("dst.ID.String()", dst.ID.String())
 		handleError(pbv1.CircuitRelay_STOP_DST_MULTIADDR_INVALID)
 		return
 	}
