@@ -213,7 +213,7 @@ func (c *Client) connectV1(s network.Stream, dest peer.AddrInfo) (*Conn, error) 
 
 	var msg pbv1.CircuitRelay
 
-	msg.Type = pbv1.CircuitRelay_HOP.Enum()
+	msg.Type = pbv1.CircuitRelay_STOP.Enum()
 	msg.SrcPeer = util.PeerInfoToPeerV1(c.host.Peerstore().PeerInfo(c.host.ID()))
 	msg.DstPeer = util.PeerInfoToPeerV1(dest)
 
