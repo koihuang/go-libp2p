@@ -2,7 +2,6 @@ package client
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"time"
 
@@ -118,6 +117,7 @@ retry:
 
 func (c *Client) dialPeer(ctx context.Context, relay, dest peer.AddrInfo) (*Conn, error) {
 	log.Debugf("dialing peer %s through relay %s", dest.ID, relay.ID)
+	fmt.Println("dialing peer %s through relay %s", dest.ID, relay.ID)
 
 	if len(relay.Addrs) > 0 {
 		c.host.Peerstore().AddAddrs(relay.ID, relay.Addrs, peerstore.TempAddrTTL)
@@ -218,13 +218,11 @@ func (c *Client) connectV1(s network.Stream, dest peer.AddrInfo) (*Conn, error) 
 	msg.SrcPeer = util.PeerInfoToPeerV1(c.host.Peerstore().PeerInfo(c.host.ID()))
 	msg.DstPeer = util.PeerInfoToPeerV1(dest)
 
+	fmt.Println("connect v1", c.host.ID().String(), dest.String())
+
 	s.SetDeadline(time.Now().Add(DialTimeout))
-	jsonMsg, err := json.Marshal(msg)
-	if err != nil {
-		return nil, err
-	}
-	fmt.Println("connectV1", jsonMsg)
-	err = wr.WriteMsg(&msg)
+
+	err := wr.WriteMsg(&msg)
 	if err != nil {
 		s.Reset()
 		return nil, err
