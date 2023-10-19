@@ -124,7 +124,7 @@ func (c *Client) dialPeer(ctx context.Context, relay, dest peer.AddrInfo) (*Conn
 
 	dialCtx, cancel := context.WithTimeout(ctx, DialRelayTimeout)
 	defer cancel()
-	s, err := c.host.NewStream(dialCtx, relay.ID, proto.ProtoIDv2Hop, proto.ProtoIDv1)
+	s, err := c.host.NewStream(dialCtx, relay.ID, proto.ProtoIDv1)
 	if err != nil {
 		return nil, fmt.Errorf("error opening hop stream to relay: %w", err)
 	}
@@ -218,7 +218,7 @@ func (c *Client) connectV1(s network.Stream, dest peer.AddrInfo) (*Conn, error) 
 	msg.DstPeer = util.PeerInfoToPeerV1(dest)
 
 	s.SetDeadline(time.Now().Add(DialTimeout))
-
+	fmt.Println("connectV1", msg)
 	err := wr.WriteMsg(&msg)
 	if err != nil {
 		s.Reset()
