@@ -451,6 +451,7 @@ func (r *Relay) handleStopStream(s network.Stream, msg *pb.CircuitRelay) {
 
 	dst, err := peerToPeerInfo(msg.GetDstPeer())
 	if err != nil || dst.ID != r.self {
+		fmt.Println("deprecated ", dst.ID.String())
 		r.handleError(s, pb.CircuitRelay_STOP_DST_MULTIADDR_INVALID)
 		return
 	}
